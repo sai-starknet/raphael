@@ -1,0 +1,10 @@
+[package]
+name = "raphael"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+starknet_api = { git = "https://github.com/dojoengine/sequencer", rev = "802c5dc" }
+scarb = "2.11.4"
+starknet = "0.14.0"
+starknet-crypto = "0.7.1"
