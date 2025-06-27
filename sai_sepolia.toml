@@ -1,0 +1,15 @@
+[account]
+rpc_url = "https://api.cartridge.gg/x/starknet/sepolia"
+account_address = "0x058e3b49d870f08c96a02f794c82b5f6c868c074deadd6ba04e8d2194723b5bd"
+keystore_path = "/home/ben/sn-accounts/0x058e3b49d870f08c96a02f794c82b5f6c868c074deadd6ba04e8d2194723b5bd-keystore.json"
+
+[contracts.declare.my_contract]
+
+[contracts.deploy.my_contract]
+contract_tag = "foo"
+salt = "0x0"
+unique = false
+calldata = [
+    "0x36031daa264c24520b11d93af622c848b2499b66b41d611bac95e13cfca131a",
+    "1000000",
+]
