@@ -1,0 +1,24 @@
+[package]
+cairo-version = "=2.10.1"
+name = "my_tests"
+version = "0.1.0"
+
+[cairo]
+sierra-replace-ids = true
+
+
+[dependencies]
+starknet = "2.10.1"
+sai_owners_writers = { git = "https://github.com/sai-starknet/cairo-utils", branch = "main" }
+
+[dev-dependencies]
+cairo_test = "2.10.1"
+snforge_std = "0.34.0"
+
+[lib]
+
+[[target.starknet-contract]]
+sierra = true
+casm = true
+
+[profile.sepolia]

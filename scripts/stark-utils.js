@@ -226,7 +226,7 @@ export const declareContract = async (account, contractPath, CasmPath) => {
   const contract = loadJson(contractPath);
 
   const classHash = hash.computeContractClassHash(contract);
-  const declaration = { class_hash: classHash };
+  const declaration = { class_hash: classHash, abi: contract.abi };
   try {
     await account.getClassByHash(classHash);
     console.log(`Already declared with classHash\n\t\t${classHash}`);
