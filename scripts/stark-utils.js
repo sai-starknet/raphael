@@ -33,6 +33,10 @@ export const loadJson = (path) => {
   return JSON.parse(fs.readFileSync(resolvePath(path)));
 };
 
+export const dumpJson = (path, data) => {
+  fs.writeFileSync(resolvePath(path), JSON.stringify(data, null, 2));
+};
+
 export const loadToml = (path) => {
   return toml.parse(fs.readFileSync(resolvePath(path)));
 };

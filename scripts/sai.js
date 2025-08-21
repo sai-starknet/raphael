@@ -6,6 +6,7 @@ import {
   declareContract,
   deployContract,
   calculateUDCContractAddressFromHash,
+  dumpJson,
 } from "./stark-utils.js";
 import commandLineArgs from "command-line-args";
 import * as accounts from "web3-eth-accounts";
@@ -142,10 +143,12 @@ export class SaiProject {
   async declareClass(tag, { name, contract_path, casm_path }) {
     const contractPath =
       contract_path ||
-      `${this.targetPath}/${this.name}_${name}.contract_class.json`;
+      `${this.targetPath}/${this.name}_${name || tag}.contract_class.json`;
     const casmPath =
       casm_path ||
-      `${this.targetPath}/${this.name}_${name}.compiled_contract_class.json`;
+      `${this.targetPath}/${this.name}_${
+        name || tag
+      }.compiled_contract_class.json`;
 
     this.declarations[tag] = await declareContract(
       this.account,
@@ -180,6 +183,7 @@ export class SaiProject {
         constructorCalldata: data.calldata,
       });
     }
+    console.log(payload);
 
     const { contract_address: ContractAddresses, transaction_hash } =
       await account.deploy(payload, {
@@ -225,7 +229,6 @@ const profile_toml = loadToml(
   resolvePath(`${directoryPath}/sai_${profile}.toml`)
 );
 
-// console.log(profile_toml);
 const account = await loadAccount(profile_toml.account, cmdArgs);
 
 const sai = loadSai(profile, account, targetPath, scarb_toml, profile_toml);
@@ -235,6 +238,13 @@ console.log(sai.classes);
 
 await sai.deployAllContracts();
 console.log(sai.deployments);
+
+dumpJson(resolvePath(`${targetPath}/manifest_${sai.profile}.json`), {
+  deployments: sai.deployments,
+  classes: sai.classes,
+  contracts: sai.contracts,
+  declarations: sai.declarations,
+});
 
 // const declarations = await declareContracts(
 //   account,
